@@ -2,6 +2,7 @@
 #include <cstring>
 #include "file_reader.h"
 #include "filter.h"
+#include "sort.h"
 
 using namespace std;
 
@@ -32,6 +33,7 @@ int main() {
         cout << "\nМеню:" << endl;
         cout << "1. Доклады Иванова Ивана Ивановича" << endl;
         cout << "2. Доклады длительностью больше 15 минут" << endl;
+        cout << "3. Сортировка" << endl;
         cout << "0. Выход" << endl;
         cout << "Выбор: ";
         cin >> choice;
@@ -47,6 +49,28 @@ int main() {
             k = filterByDuration(ptrs, n, filtered, 15);
             cout << "Найдено: " << k << endl;
             for (int i = 0; i < k; i++) printReport(*filtered[i]);
+        }
+        else if (choice == 3) {
+            SortFunc sortFuncs[] = { heapSort, mergeSort };
+            CompareFunc cmpFuncs[] = { compareByDurationDesc, compareByAuthorTopic };
+
+            cout << "Метод сортировки:" << endl;
+            cout << "1. Пирамидальная (Heap sort)" << endl;
+            cout << "2. Слиянием (Merge sort)" << endl;
+            int sm; cin >> sm;
+
+            cout << "Критерий:" << endl;
+            cout << "1. По убыванию длительности" << endl;
+            cout << "2. По возрастанию фамилии и темы" << endl;
+            int sc; cin >> sc;
+
+        
+            Report* tmp[MAX_SIZE];
+            for (int i = 0; i < n; i++) tmp[i] = ptrs[i];
+
+            sortFuncs[sm - 1](tmp, n, cmpFuncs[sc - 1]);
+
+            for (int i = 0; i < n; i++) printReport(*tmp[i]);
         }
     } while (choice != 0);
 
