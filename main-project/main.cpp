@@ -16,7 +16,7 @@ int main() {
     setlocale(LC_ALL, "Russian");
     cout << "Вариант 2. Программа конференции" << endl;
     cout << "Автор: Бурунов Иван" << endl;  
-
+    cout << "Группа: 25 исит1д" << endl;  
     Report reports[MAX_SIZE];
     int n = readReports(reports, "data.txt");
     cout << "Загружено докладов: " << n << endl;
