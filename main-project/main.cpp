@@ -1,5 +1,6 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include "processing.h"
 #include <cstring>
 #include "file_reader.h"
 #include "filter.h"
@@ -35,6 +36,7 @@ int main() {
         cout << "1. Доклады Иванова Ивана Ивановича" << endl;
         cout << "2. Доклады длительностью больше 15 минут" << endl;
         cout << "3. Сортировка" << endl;
+        cout << "4. Самый длинный доклад" << endl;
         cout << "0. Выход" << endl;
         cout << "Выбор: ";
         cin >> choice;
@@ -72,6 +74,16 @@ int main() {
             sortFuncs[sm - 1](tmp, n, cmpFuncs[sc - 1]);
 
             for (int i = 0; i < n; i++) printReport(*tmp[i]);
+        }
+        else if (choice == 4) {
+            int idx = findMaxDurationIndex(reports, n);
+            if (idx >= 0) {
+                cout << "Самый длинный доклад:" << endl;
+                printf("Начало: %02d:%02d  Конец: %02d:%02d\n",
+                    reports[idx].startHour, reports[idx].startMin,
+                    reports[idx].endHour, reports[idx].endMin);
+                printReport(reports[idx]);
+            }
         }
     } while (choice != 0);
 
